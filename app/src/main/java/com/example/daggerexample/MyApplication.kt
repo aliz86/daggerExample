@@ -19,7 +19,7 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         // Required initialization logic here!
-        val c = appComponent.b
+       // val c = appComponent.b
     }
 
     // Called by the system when the device configuration changes while your component is running.
