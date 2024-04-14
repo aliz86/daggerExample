@@ -1,5 +1,7 @@
 package com.example.daggerexample.di
 
+import com.example.daggerexample.retrofit.RetrofitApi
+import com.example.daggerexample.scopes.AppScope
 import com.example.daggerexample.testClasses.otherclasses.DTest
 import com.example.daggerexample.testClasses.otherclasses.ETest
 import com.example.daggerexample.testClasses.otherclasses.FTest
@@ -21,13 +23,14 @@ class MyFirstDiModule (/*i : Int*/) {
 
 
     //If I write it like below, every time the DTest object is needed the retrofit object will be recreated because of the getRetrofit()...
-    @Provides
-    fun dTest() = DTest(getRetrofit().create(Retrofit::class.java))
-
 /*
     @Provides
-    fun dTest(retrofit : Retrofit) = DTest(retrofit.create(Retrofit::class.java))
+    fun dTest() = DTest(getRetrofit().create(Retrofit::class.java))
 */
+
+
+    @Provides
+    fun dTest(retrofit : Retrofit) = DTest(retrofit.create(RetrofitApi::class.java))
 
     @Provides
     fun eTest() = ETest()

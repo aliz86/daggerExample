@@ -1,5 +1,6 @@
 package com.example.daggerexample.di
 
+import com.example.daggerexample.scopes.AppScope
 import com.example.daggerexample.testClasses.otherclasses.DTest
 import com.example.daggerexample.testClasses.otherclasses.ETest
 import com.example.daggerexample.testClasses.otherclasses.FTest
