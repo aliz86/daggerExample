@@ -1,4 +1,4 @@
 package com.example.daggerexample.testClasses
 
-class BClass {
+class BTest {
 }
