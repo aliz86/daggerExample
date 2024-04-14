@@ -8,8 +8,7 @@ import com.example.daggerexample.testClasses.otherclasses.FTest
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
-
-
+import javax.inject.Singleton
 
 
 @Module
@@ -29,7 +28,7 @@ class MyFirstDiModule (/*i : Int*/) {
 */
 
     //must be added to the component, too : ApplicationComponent & Yam Component
-    @AppScope
+    @Singleton
     @Provides
     fun dTest(retrofit : Retrofit) = DTest(retrofit.create(RetrofitApi::class.java))
 
