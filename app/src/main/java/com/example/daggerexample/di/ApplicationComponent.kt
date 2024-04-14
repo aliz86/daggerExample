@@ -8,6 +8,7 @@ import dagger.Component
 import retrofit2.Retrofit
 
 // Definition of the Application graph
+@AppScope
 @Component(modules = [MyFirstDiModule::class])
 interface ApplicationComponent {
     fun dTest() : DTest

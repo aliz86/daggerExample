@@ -28,7 +28,8 @@ class MyFirstDiModule (/*i : Int*/) {
     fun dTest() = DTest(getRetrofit().create(Retrofit::class.java))
 */
 
-
+    //must be added to the component, too : ApplicationComponent & Yam Component
+    @AppScope
     @Provides
     fun dTest(retrofit : Retrofit) = DTest(retrofit.create(RetrofitApi::class.java))
 
