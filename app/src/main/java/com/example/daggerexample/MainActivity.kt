@@ -8,7 +8,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
         @Inject
-        private val dTest : DTest
+        private lateinit var dTest : DTest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
