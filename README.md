@@ -76,6 +76,12 @@ Dagger Scope:
 A scoped object will share the lifecycle of the component of the same scope.
 in below sample, same goes with a component which is initiated in ClassB, doesn't need to be necessarily a "component".
 So If we have a component named "ApplicationComponent" and then a subcomponent named "ActivityComponent" (They are just names, no standard class with these names exist) with scope "ActivityScope". If we initiate and start this subcomponent (or component, doesn't matter) in a ClassB class (e.g., Activity Class), when the ClassB instance is Garbage Collected, or if that subcomponent is set to null, the objects with the same scope will be null, too. It is like creating Singletons with scopes, being bound to certain classes.
+
+In Dagger, you can use @Singleton for application scope, but you also can 
+
+Remember:
+You use @Retention(AnnotationRetention.RUNTIME) always when you are defining a custom scope annotation to be used with Dagger. (Like one of the above examples).
+
 ---------------------------------------------------------
 
 Steps to create a custom scope with dagger:
@@ -647,7 +653,19 @@ class MainActivity : AppCompatActivity() {
 Now, when you run your app, each activity will have its own unique instance of `ClassD`. You can verify this by checking the log output - you should see different IDs logged for each activity. 
 
 -----------------------------------------------------------------
+Dependent Components:
+How about if a component has a module and that module has a dependency that is already initiated in a dagger component in for example, Application Class?
+in Vasiliy Zukanov video "050 dependent components" it is explained.
+It's very easy. Just add dependency = ... to that component:
+@Component(dependencies = [AppComponent::class], modules = [ActivityModule::class])
+interface ActivityComponent { ...
 
-Remember:
-You use @Retention(AnnotationRetention.RUNTIME) always when you are defining a custom scope annotation to be used with Dagger. (Like one of the above examples).
+-------------------------------------------------------------------
+
+Subcomponent:
+obvious, also in in Vasiliy Zukanov video "51 ...
+Why use subcomponents:
+Subcomponents are components that inherit and extend the object graph of a parent component. This means all objects provided in the parent component will be available in the subcomponent.
+So, if we want to use the same objects in componentA which is initiated in e.g., "Application" class and do not want to re-initiate those objects, I use a subcomponent of that componentA.
+Gemini explanation: Dagger guarantees that within a given scope, it will provide only a single instance of a dependency. This means if ComponentA provides an instance of some object (e.g., SharedObject), and you then create a subcomponent and request SharedObject, you'll get the same instance that ComponentA created.
 
