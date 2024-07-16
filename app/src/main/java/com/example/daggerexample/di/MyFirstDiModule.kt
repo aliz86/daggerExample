@@ -14,6 +14,7 @@ import javax.inject.Singleton
 @Module
 class MyFirstDiModule (/*i : Int*/) {
 
+    //Dagger will know to use this object for creation of DTest object automatically. Also see the reame.ms file in this project, part "If in a module, two objects have the same dependency"
     @Provides
     fun getRetrofit() = Retrofit.Builder()
         .baseUrl("https://api.github.com/")
@@ -26,7 +27,6 @@ class MyFirstDiModule (/*i : Int*/) {
     @Provides
     fun dTest() = DTest(getRetrofit().create(Retrofit::class.java))
 */
-
     //must be added to the component, too : ApplicationComponent & Yam Component
     @Singleton
     @Provides

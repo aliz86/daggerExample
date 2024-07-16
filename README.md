@@ -668,4 +668,35 @@ Why use subcomponents:
 Subcomponents are components that inherit and extend the object graph of a parent component. This means all objects provided in the parent component will be available in the subcomponent.
 So, if we want to use the same objects in componentA which is initiated in e.g., "Application" class and do not want to re-initiate those objects, I use a subcomponent of that componentA.
 Gemini explanation: Dagger guarantees that within a given scope, it will provide only a single instance of a dependency. This means if ComponentA provides an instance of some object (e.g., SharedObject), and you then create a subcomponent and request SharedObject, you'll get the same instance that ComponentA created.
+-----------------------------------
 
+If in a module, two objects have the same dependency, like the Class "MyFirstDiModule" in this application:
+
+Sure, I can provide an example where two objects need the same dependency using Dagger. Let's say we have a `NetworkClient` class that is used by two different classes: `ClassA` and `ClassB`. Here's how you might set this up in a Dagger module:
+
+```java
+@Module
+public class NetworkModule {
+
+    @Provides
+    @Singleton
+    NetworkClient provideNetworkClient() {
+        return new NetworkClient();
+    }
+
+    @Provides
+    ClassA provideClassA(NetworkClient networkClient) {
+        return new ClassA(networkClient);
+    }
+
+    @Provides
+    ClassB provideClassB(NetworkClient networkClient) {
+        return new ClassB(networkClient);
+    }
+}
+```
+
+In this example, both `ClassA` and `ClassB` are provided with the same instance of `NetworkClient`. The `@Singleton` annotation ensures that only a single instance of `NetworkClient` is created and used throughout the application. The `provideClassA` and `provideClassB` methods take `NetworkClient` as a parameter, which Dagger automatically provides because it knows how to create `NetworkClient` from the `provideNetworkClient` method. This is called **dependency injection**.
+
+Please note that this is a simple example and real-world usage might be more complex depending on your application's requirements. Also, Dagger has been superseded by Dagger Hilt, which is recommended for new projects. Dagger Hilt simplifies Dagger-related infrastructure for Android apps. You might want to consider using Dagger Hilt if you're starting a new project.
+----------------------------------------------------------------
